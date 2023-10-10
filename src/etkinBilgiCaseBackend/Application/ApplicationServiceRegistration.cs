@@ -15,6 +15,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Services.Personnels;
+using Application.Services.Departments;
 
 namespace Application;
 
@@ -45,6 +46,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IUserService, UserManager>();
 
         services.AddScoped<IPersonnelsService, PersonnelsManager>();
+        services.AddScoped<IDepartmentsService, DepartmentsManager>();
         return services;
     }
 
