@@ -23,6 +23,7 @@ public static class PersistenceServiceRegistration
 
         services.AddScoped<IPersonnelRepository, PersonnelRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IPersonnelShiftRepository, PersonnelShiftRepository>();
         return services;
     }
 }

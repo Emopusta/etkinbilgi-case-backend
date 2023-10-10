@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Application.Services.Personnels;
 using Application.Services.Departments;
+using Application.Services.PersonnelShifts;
 
 namespace Application;
 
@@ -47,6 +48,7 @@ public static class ApplicationServiceRegistration
 
         services.AddScoped<IPersonnelsService, PersonnelsManager>();
         services.AddScoped<IDepartmentsService, DepartmentsManager>();
+        services.AddScoped<IPersonnelShiftsService, PersonnelShiftsManager>();
         return services;
     }
 
