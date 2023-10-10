@@ -9,4 +9,14 @@ namespace Domain.Entities;
 public class Department : Entity<Guid>
 {
     public string Name { get; set; }
+
+    public Department()
+    {
+
+    }
+    public Department(Guid id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
 }

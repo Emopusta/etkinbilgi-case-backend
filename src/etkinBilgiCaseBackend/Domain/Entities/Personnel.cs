@@ -13,5 +13,16 @@ namespace Domain.Entities
         public Guid UserId { get; set; }
 
         public virtual User? User{ get; set; }
+
+
+        public Personnel()
+        {
+
+        }
+        public Personnel(Guid id, Guid userId)
+        {
+            Id = id;
+            UserId = userId;
+        }
     }
 }
