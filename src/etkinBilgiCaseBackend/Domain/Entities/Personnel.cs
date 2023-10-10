@@ -11,7 +11,7 @@ namespace Domain.Entities
     public class Personnel : Entity<Guid>
     {
         public Guid UserId { get; set; }
-
+        public string Image { get; set; }
         public virtual User? User{ get; set; }
 
 
@@ -19,9 +19,10 @@ namespace Domain.Entities
         {
 
         }
-        public Personnel(Guid id, Guid userId)
+        public Personnel(Guid id, string image, Guid userId)
         {
             Id = id;
+            Image = image;
             UserId = userId;
         }
     }

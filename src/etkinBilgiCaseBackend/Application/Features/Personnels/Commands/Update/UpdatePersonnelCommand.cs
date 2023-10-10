@@ -16,6 +16,7 @@ public class UpdatePersonnelCommand : IRequest<UpdatedPersonnelResponse>, ISecur
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
+    public string Image { get; set; }
 
     public string[] Roles => new[] { Admin, Write, PersonnelsOperationClaims.Update };
 

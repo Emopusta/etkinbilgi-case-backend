@@ -15,6 +15,7 @@ namespace Application.Features.Personnels.Commands.Create;
 public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid UserId { get; set; }
+    public string Image { get; set; }
 
     public string[] Roles => new[] { Admin, Write, PersonnelsOperationClaims.Create };
 

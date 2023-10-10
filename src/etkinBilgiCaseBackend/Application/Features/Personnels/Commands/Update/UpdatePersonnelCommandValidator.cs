@@ -8,5 +8,6 @@ public class UpdatePersonnelCommandValidator : AbstractValidator<UpdatePersonnel
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.UserId).NotEmpty();
+        RuleFor(c => c.Image).NotEmpty();
     }
 }

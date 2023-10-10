@@ -12,6 +12,7 @@ public class PersonnelConfiguration : IEntityTypeConfiguration<Personnel>
 
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
         builder.Property(p => p.UserId).HasColumnName("UserId");
+        builder.Property(p => p.Image).HasColumnName("Image");
         builder.Property(p => p.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");
         builder.Property(p => p.DeletedDate).HasColumnName("DeletedDate");
