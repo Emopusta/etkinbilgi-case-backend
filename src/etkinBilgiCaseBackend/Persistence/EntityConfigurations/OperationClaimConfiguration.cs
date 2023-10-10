@@ -33,6 +33,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new OperationClaim { Id = ++id, Name = GeneralOperationClaims.Admin }
             };
 
+        
+        #region Personnels
+        
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Admin" });
+        
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Read" });
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Write" });
+        
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Add" });
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Update" });
+        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Delete" });
+        
+        #endregion
+        
         return seeds;
     }
 }
