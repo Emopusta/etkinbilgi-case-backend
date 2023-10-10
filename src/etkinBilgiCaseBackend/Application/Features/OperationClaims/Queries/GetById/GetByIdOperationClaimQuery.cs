@@ -9,7 +9,7 @@ namespace Application.Features.OperationClaims.Queries.GetById;
 
 public class GetByIdOperationClaimQuery : IRequest<GetByIdOperationClaimResponse>
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
 
     public class GetByIdOperationClaimQueryHandler : IRequestHandler<GetByIdOperationClaimQuery, GetByIdOperationClaimResponse>
     {

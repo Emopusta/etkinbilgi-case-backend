@@ -26,52 +26,52 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
     private HashSet<OperationClaim> getSeeds()
     {
-        int id = 0;
+        
         HashSet<OperationClaim> seeds =
             new()
             {
-                new OperationClaim { Id = ++id, Name = GeneralOperationClaims.Admin }
+                new OperationClaim { Id = Guid.NewGuid(), Name = GeneralOperationClaims.Admin }
             };
 
         
         #region Personnels
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Admin" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Admin" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Read" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Write" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Read" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Write" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Add" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Update" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Personnels.Delete" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Add" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Update" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Personnels.Delete" });
         
         #endregion
         
         
         #region Departments
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Admin" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Admin" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Read" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Write" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Read" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Write" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Add" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Update" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "Departments.Delete" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Add" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Update" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "Departments.Delete" });
         
         #endregion
         
         
         #region PersonnelShifts
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Admin" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Admin" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Read" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Write" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Read" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Write" });
         
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Add" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Update" });
-        seeds.Add(new OperationClaim { Id = ++id, Name = "PersonnelShifts.Delete" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Add" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Update" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelShifts.Delete" });
         
         #endregion
         

@@ -45,7 +45,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         User adminUser =
             new()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 FirstName = "Admin",
                 LastName = "NArchitecture",
                 Email = "admin@admin.com",

@@ -11,9 +11,9 @@ namespace Application.Features.UserOperationClaims.Commands.Update;
 
 public class UpdateUserOperationClaimCommand : IRequest<UpdatedUserOperationClaimResponse>, ISecuredRequest
 {
-    public int Id { get; set; }
-    public int UserId { get; set; }
-    public int OperationClaimId { get; set; }
+    public Guid Id { get; set; }
+    public Guid UserId { get; set; }
+    public Guid OperationClaimId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, UserOperationClaimsOperationClaims.Update };
 

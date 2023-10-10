@@ -10,8 +10,8 @@ namespace Application.Features.UserOperationClaims.Commands.Create;
 
 public class CreateUserOperationClaimCommand : IRequest<CreatedUserOperationClaimResponse>, ISecuredRequest
 {
-    public int UserId { get; set; }
-    public int OperationClaimId { get; set; }
+    public Guid UserId { get; set; }
+    public Guid OperationClaimId { get; set; }
 
     public string[] Roles => new[] { Admin, Write, Add };
 

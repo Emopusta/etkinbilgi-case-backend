@@ -22,7 +22,7 @@ public class OperationClaimBusinessRules : BaseBusinessRules
         return Task.CompletedTask;
     }
 
-    public async Task OperationClaimIdShouldExistWhenSelected(int id)
+    public async Task OperationClaimIdShouldExistWhenSelected(Guid id)
     {
         bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id == id, enableTracking: false);
         if (doesExist)
@@ -36,7 +36,7 @@ public class OperationClaimBusinessRules : BaseBusinessRules
             throw new BusinessException(OperationClaimsMessages.AlreadyExists);
     }
 
-    public async Task OperationClaimNameShouldNotExistWhenUpdating(int id, string name)
+    public async Task OperationClaimNameShouldNotExistWhenUpdating(Guid id, string name)
     {
         bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id != id && b.Name == name, enableTracking: false);
         if (doesExist)

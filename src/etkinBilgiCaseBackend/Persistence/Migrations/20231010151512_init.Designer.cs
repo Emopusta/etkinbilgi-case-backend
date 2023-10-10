@@ -12,7 +12,7 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20231010103549_init")]
+    [Migration("20231010151512_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -27,12 +27,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Security.Entities.EmailAuthenticator", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ActivationKey")
                         .HasColumnType("nvarchar(max)")
@@ -54,8 +52,8 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
@@ -67,12 +65,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -98,20 +94,126 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("e42fe1ec-74a8-44e5-9d23-8c6b16fc697e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("6f4c1fa8-b6e2-4d3b-82b3-6b3e84f69dcf"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("d9068ad4-fa4b-4361-8b4d-e7d2c56bacce"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Read"
+                        },
+                        new
+                        {
+                            Id = new Guid("f8d8d336-0da4-4ba5-b25e-4eeaaa927644"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Write"
+                        },
+                        new
+                        {
+                            Id = new Guid("2ac1aca6-03ad-4f91-b48d-321fde4bfc58"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Add"
+                        },
+                        new
+                        {
+                            Id = new Guid("983b8d98-177b-47d3-ab6e-e6cbb872a823"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("efae550c-9683-4cf1-b6ff-080d2957c955"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Personnels.Delete"
+                        },
+                        new
+                        {
+                            Id = new Guid("fc1b4e9d-c6e5-4924-9ba1-076e5cc5b705"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("05c63e24-e04d-430a-bcd4-531b47dfc432"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Read"
+                        },
+                        new
+                        {
+                            Id = new Guid("92b7a070-c863-4a63-8290-4f84c215dd0f"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Write"
+                        },
+                        new
+                        {
+                            Id = new Guid("e73f9495-65e7-412a-a07e-08cbff8a0686"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Add"
+                        },
+                        new
+                        {
+                            Id = new Guid("19705f8c-646b-4aa6-b233-03bb5c627f09"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("77456783-d55f-4415-88e8-e376c75acb3e"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Departments.Delete"
+                        },
+                        new
+                        {
+                            Id = new Guid("13f78f31-0db4-4167-98fa-25393968a486"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Admin"
+                        },
+                        new
+                        {
+                            Id = new Guid("7f1dd303-1052-44c9-8e8f-3549cedc220c"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Read"
+                        },
+                        new
+                        {
+                            Id = new Guid("a21edcfc-1bd2-459d-8064-2c8d4e718ef2"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Write"
+                        },
+                        new
+                        {
+                            Id = new Guid("c30ebb91-8cb4-4114-9ec6-ce1bd06c210e"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Add"
+                        },
+                        new
+                        {
+                            Id = new Guid("c0f6904d-a69b-4a0a-a765-3b98a0c433d4"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Update"
+                        },
+                        new
+                        {
+                            Id = new Guid("44f2b721-a668-41d9-9310-054c89811d7d"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "PersonnelShifts.Delete"
                         });
                 });
 
             modelBuilder.Entity("Core.Security.Entities.OtpAuthenticator", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -134,8 +236,8 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
@@ -147,12 +249,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Security.Entities.RefreshToken", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CreatedByIp")
                         .IsRequired()
@@ -196,8 +296,8 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
@@ -209,12 +309,10 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Core.Security.Entities.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthenticatorType")
                         .HasColumnType("int")
@@ -270,26 +368,24 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("75300e10-1bd6-4a09-9b00-a47ba1faecef"),
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@admin.com",
                             FirstName = "Admin",
                             LastName = "NArchitecture",
-                            PasswordHash = new byte[] { 75, 128, 83, 194, 118, 103, 24, 30, 241, 235, 25, 33, 46, 177, 172, 25, 50, 27, 145, 202, 62, 14, 56, 100, 42, 164, 220, 178, 253, 114, 173, 61, 205, 220, 191, 224, 178, 21, 0, 14, 187, 94, 119, 197, 217, 113, 12, 151, 223, 149, 124, 121, 11, 91, 62, 191, 218, 54, 69, 143, 66, 39, 244, 46 },
-                            PasswordSalt = new byte[] { 23, 211, 94, 7, 72, 218, 75, 227, 121, 13, 78, 249, 171, 58, 11, 229, 132, 201, 216, 208, 185, 105, 163, 40, 200, 207, 83, 169, 154, 148, 197, 213, 17, 44, 239, 169, 19, 131, 239, 162, 228, 177, 247, 24, 165, 56, 95, 233, 227, 185, 200, 122, 167, 192, 245, 249, 16, 255, 119, 210, 142, 223, 37, 164, 195, 93, 142, 140, 3, 226, 32, 179, 190, 29, 130, 234, 122, 187, 174, 5, 91, 41, 195, 213, 83, 203, 122, 58, 66, 104, 23, 49, 131, 236, 241, 209, 74, 8, 180, 12, 98, 127, 62, 121, 233, 204, 202, 207, 111, 117, 121, 136, 70, 250, 145, 113, 130, 38, 23, 235, 100, 235, 239, 35, 163, 189, 125, 49 },
+                            PasswordHash = new byte[] { 61, 152, 36, 203, 44, 126, 72, 127, 195, 62, 142, 250, 94, 92, 126, 150, 244, 25, 6, 214, 139, 89, 45, 238, 137, 67, 58, 239, 240, 128, 62, 148, 156, 129, 236, 66, 189, 176, 24, 13, 61, 222, 42, 80, 128, 112, 41, 211, 163, 158, 44, 37, 83, 207, 70, 46, 27, 188, 74, 238, 118, 195, 97, 159 },
+                            PasswordSalt = new byte[] { 90, 53, 25, 35, 177, 187, 95, 175, 98, 174, 223, 153, 243, 214, 169, 138, 140, 63, 177, 171, 111, 133, 60, 12, 129, 171, 202, 113, 213, 246, 86, 230, 71, 184, 89, 54, 179, 144, 116, 76, 7, 218, 168, 28, 148, 142, 58, 165, 225, 55, 196, 82, 103, 29, 235, 210, 33, 4, 206, 146, 86, 5, 245, 130, 133, 163, 181, 234, 51, 229, 22, 168, 12, 45, 43, 218, 134, 105, 124, 108, 226, 24, 76, 49, 225, 200, 76, 34, 19, 235, 28, 245, 111, 144, 102, 227, 178, 12, 47, 65, 211, 255, 229, 168, 93, 213, 229, 10, 234, 177, 54, 37, 69, 172, 232, 5, 175, 232, 49, 131, 56, 186, 124, 129, 53, 231, 130, 234 },
                             Status = true
                         });
                 });
 
             modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2")
@@ -299,16 +395,16 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<int>("OperationClaimId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("OperationClaimId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("OperationClaimId");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("UpdatedDate");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
                         .HasColumnName("UserId");
 
                     b.HasKey("Id");
@@ -318,15 +414,106 @@ namespace Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserOperationClaims", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OperationClaimId = 1,
-                            UserId = 1
-                        });
+            modelBuilder.Entity("Domain.Entities.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Personnel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Image");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Personnels", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.PersonnelShift", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedDate");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("DeletedDate");
+
+                    b.Property<DateTime>("EndShift")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("EndShift");
+
+                    b.Property<Guid>("PersonnelId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("PersonnelId");
+
+                    b.Property<DateTime>("StartShift")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("StartShift");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersonnelShifts", (string)null);
                 });
 
             modelBuilder.Entity("Core.Security.Entities.EmailAuthenticator", b =>
@@ -377,6 +564,17 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("OperationClaim");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Personnel", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

@@ -2,9 +2,9 @@
 
 namespace Core.Security.Entities;
 
-public class OtpAuthenticator : Entity<int>
+public class OtpAuthenticator : Entity<Guid>
 {
-    public int UserId { get; set; }
+    public Guid UserId { get; set; }
     public byte[] SecretKey { get; set; }
     public bool IsVerified { get; set; }
 
@@ -15,14 +15,14 @@ public class OtpAuthenticator : Entity<int>
         SecretKey = Array.Empty<byte>();
     }
 
-    public OtpAuthenticator(int userId, byte[] secretKey, bool isVerified)
+    public OtpAuthenticator(Guid userId, byte[] secretKey, bool isVerified)
     {
         UserId = userId;
         SecretKey = secretKey;
         IsVerified = isVerified;
     }
 
-    public OtpAuthenticator(int id, int userId, byte[] secretKey, bool isVerified)
+    public OtpAuthenticator(Guid id, Guid userId, byte[] secretKey, bool isVerified)
         : base(id)
     {
         UserId = userId;
