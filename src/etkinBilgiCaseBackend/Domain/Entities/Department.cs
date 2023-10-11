@@ -9,6 +9,8 @@ namespace Domain.Entities;
 public class Department : Entity<Guid>
 {
     public string Name { get; set; }
+    public virtual Personnel? Personnel { get; set; }
+
 
     public Department()
     {

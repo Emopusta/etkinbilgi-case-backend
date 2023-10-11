@@ -10,6 +10,8 @@ public class PersonnelDepartment : Entity<Guid>
 {
     public Guid PersonnelId { get; set; }
     public Guid DepartmentId { get; set; }
+    public virtual Personnel Personnel { get; set; }
+    public virtual Department Department { get; set; }
 
     public PersonnelDepartment()
     {

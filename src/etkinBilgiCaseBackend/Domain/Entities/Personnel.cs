@@ -13,6 +13,7 @@ namespace Domain.Entities
         public Guid UserId { get; set; }
         public string Image { get; set; }
         public virtual User? User{ get; set; }
+        public virtual ICollection<Department> Departments { get; set; }
 
 
         public Personnel()
