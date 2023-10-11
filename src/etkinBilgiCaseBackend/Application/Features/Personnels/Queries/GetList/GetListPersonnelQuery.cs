@@ -9,10 +9,11 @@ using Core.Application.Responses;
 using Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Personnels.Constants.PersonnelsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Personnels.Queries.GetList;
 
-public class GetListPersonnelQuery : IRequest<GetListResponse<GetListPersonnelListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListPersonnelQuery : IRequest<GetListResponse<GetListPersonnelListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
@@ -37,6 +38,7 @@ public class GetListPersonnelQuery : IRequest<GetListResponse<GetListPersonnelLi
         public async Task<GetListResponse<GetListPersonnelListItemDto>> Handle(GetListPersonnelQuery request, CancellationToken cancellationToken)
         {
             IPaginate<Personnel> personnels = await _personnelRepository.GetListAsync(
+                include: p=> p.Include(c => c.User),
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
                 cancellationToken: cancellationToken

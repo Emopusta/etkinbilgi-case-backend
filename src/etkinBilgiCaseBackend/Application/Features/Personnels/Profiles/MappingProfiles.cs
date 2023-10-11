@@ -21,7 +21,13 @@ public class MappingProfiles : Profile
         CreateMap<Personnel, DeletePersonnelCommand>().ReverseMap();
         CreateMap<Personnel, DeletedPersonnelResponse>().ReverseMap();
         CreateMap<Personnel, GetByIdPersonnelResponse>().ReverseMap();
-        CreateMap<Personnel, GetListPersonnelListItemDto>().ReverseMap();
+        CreateMap<Personnel, GetListPersonnelListItemDto>()
+            .ForMember(p => p.FirstName, opt => opt.MapFrom(u => u.User.FirstName))
+            .ForMember(p => p.LastName, opt => opt.MapFrom(u => u.User.LastName))
+            .ForMember(p => p.Email, opt => opt.MapFrom(u => u.User.Email))
+            .ReverseMap();
+
+
         CreateMap<IPaginate<Personnel>, GetListResponse<GetListPersonnelListItemDto>>().ReverseMap();
     }
 }
