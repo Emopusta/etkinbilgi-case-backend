@@ -14,7 +14,7 @@ namespace WebAPI.Controllers;
 public class PersonnelsController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CreatePersonnelCommand createPersonnelCommand)
+    public async Task<IActionResult> Add([FromForm] CreatePersonnelCommand createPersonnelCommand)
     {
         CreatedPersonnelResponse response = await Mediator.Send(createPersonnelCommand);
 

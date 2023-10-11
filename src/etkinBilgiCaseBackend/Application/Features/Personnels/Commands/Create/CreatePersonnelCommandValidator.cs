@@ -6,7 +6,7 @@ public class CreatePersonnelCommandValidator : AbstractValidator<CreatePersonnel
 {
     public CreatePersonnelCommandValidator()
     {
-        RuleFor(c => c.UserId).NotEmpty();
+        RuleFor(c => c.Email).NotEmpty();
         RuleFor(c => c.Image).NotEmpty();
     }
 }

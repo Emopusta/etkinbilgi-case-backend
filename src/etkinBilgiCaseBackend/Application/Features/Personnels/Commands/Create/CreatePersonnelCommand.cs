@@ -9,13 +9,16 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Personnels.Constants.PersonnelsOperationClaims;
+using Microsoft.AspNetCore.Http;
+using Application.Features.Users.Rules;
+using Application.Services.ImageService;
 
 namespace Application.Features.Personnels.Commands.Create;
 
-public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
-    public Guid UserId { get; set; }
-    public string Image { get; set; }
+    public string Email { get; set; }
+    public IFormFile Image { get; set; }
 
     public string[] Roles => new[] { Admin, Write, PersonnelsOperationClaims.Create };
 
@@ -28,18 +31,29 @@ public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ISecur
         private readonly IMapper _mapper;
         private readonly IPersonnelRepository _personnelRepository;
         private readonly PersonnelBusinessRules _personnelBusinessRules;
+        private readonly IUserRepository _userRepository;
+        private readonly UserBusinessRules _userBusinessRules;
+        private readonly ImageServiceBase _imageServiceBase;
 
-        public CreatePersonnelCommandHandler(IMapper mapper, IPersonnelRepository personnelRepository,
-                                         PersonnelBusinessRules personnelBusinessRules)
+        public CreatePersonnelCommandHandler(IMapper mapper, IPersonnelRepository personnelRepository, PersonnelBusinessRules personnelBusinessRules, IUserRepository userRepository, UserBusinessRules userBusinessRules, ImageServiceBase imageServiceBase)
         {
             _mapper = mapper;
             _personnelRepository = personnelRepository;
             _personnelBusinessRules = personnelBusinessRules;
+            _userRepository = userRepository;
+            _userBusinessRules = userBusinessRules;
+            _imageServiceBase = imageServiceBase;
         }
 
         public async Task<CreatedPersonnelResponse> Handle(CreatePersonnelCommand request, CancellationToken cancellationToken)
         {
             Personnel personnel = _mapper.Map<Personnel>(request);
+
+            var requestedUser = await _userRepository.GetAsync(predicate => predicate.Email == request.Email, cancellationToken: cancellationToken);
+            await _userBusinessRules.UserShouldBeExistsWhenSelected(requestedUser);
+
+            personnel.UserId = requestedUser.Id;
+            personnel.Image = await _imageServiceBase.UploadAsync(request.Image);
 
             await _personnelRepository.AddAsync(personnel);
 
