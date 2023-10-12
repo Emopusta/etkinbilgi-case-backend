@@ -18,6 +18,7 @@ public class BaseDbContext : DbContext
     public DbSet<Personnel> Personnels { get; set; }
     public DbSet<Department> Departments { get; set; }
     public DbSet<PersonnelShift> PersonnelShifts { get; set; }
+    public DbSet<PersonnelDepartment> PersonnelDepartments { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

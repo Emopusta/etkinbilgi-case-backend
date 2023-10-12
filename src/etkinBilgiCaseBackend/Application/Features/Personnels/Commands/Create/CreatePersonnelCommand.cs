@@ -15,7 +15,7 @@ using Application.Services.ImageService;
 
 namespace Application.Features.Personnels.Commands.Create;
 
-public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreatePersonnelCommand : IRequest<CreatedPersonnelResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string Email { get; set; }
     public IFormFile Image { get; set; }

@@ -12,7 +12,7 @@ using static Application.Features.Departments.Constants.DepartmentsOperationClai
 
 namespace Application.Features.Departments.Queries.GetList;
 
-public class GetListDepartmentQuery : IRequest<GetListResponse<GetListDepartmentListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListDepartmentQuery : IRequest<GetListResponse<GetListDepartmentListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 

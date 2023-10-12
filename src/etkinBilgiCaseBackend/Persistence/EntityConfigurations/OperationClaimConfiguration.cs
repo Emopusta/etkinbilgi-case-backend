@@ -75,6 +75,20 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         
         #endregion
         
+        
+        #region PersonnelDepartments
+        
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Admin" });
+        
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Read" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Write" });
+        
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Add" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Update" });
+        seeds.Add(new OperationClaim { Id = Guid.NewGuid(), Name = "PersonnelDepartments.Delete" });
+        
+        #endregion
+        
         return seeds;
     }
 }

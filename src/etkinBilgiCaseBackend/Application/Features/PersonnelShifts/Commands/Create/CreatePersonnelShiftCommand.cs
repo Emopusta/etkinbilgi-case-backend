@@ -14,7 +14,7 @@ using Application.Features.Personnels.Rules;
 
 namespace Application.Features.PersonnelShifts.Commands.Create;
 
-public class CreatePersonnelShiftCommand : IRequest<CreatedPersonnelShiftResponse>, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreatePersonnelShiftCommand : IRequest<CreatedPersonnelShiftResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string Email { get; set; }
     public string StartShift { get; set; }

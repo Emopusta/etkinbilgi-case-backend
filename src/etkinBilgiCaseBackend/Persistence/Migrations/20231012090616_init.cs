@@ -14,21 +14,6 @@ namespace Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Departments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OperationClaims",
                 columns: table => new
                 {
@@ -49,8 +34,8 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PersonnelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StartShift = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndShift = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EndShift = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -205,36 +190,96 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PersonnelId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Departments_Personnels_PersonnelId",
+                        column: x => x.PersonnelId,
+                        principalTable: "Personnels",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonnelDepartments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PersonnelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonnelDepartments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PersonnelDepartments_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonnelDepartments_Personnels_PersonnelId",
+                        column: x => x.PersonnelId,
+                        principalTable: "Personnels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "OperationClaims",
                 columns: new[] { "Id", "CreatedDate", "DeletedDate", "Name", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { new Guid("05c63e24-e04d-430a-bcd4-531b47dfc432"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Read", null },
-                    { new Guid("13f78f31-0db4-4167-98fa-25393968a486"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Admin", null },
-                    { new Guid("19705f8c-646b-4aa6-b233-03bb5c627f09"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Update", null },
-                    { new Guid("2ac1aca6-03ad-4f91-b48d-321fde4bfc58"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Add", null },
-                    { new Guid("44f2b721-a668-41d9-9310-054c89811d7d"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Delete", null },
-                    { new Guid("6f4c1fa8-b6e2-4d3b-82b3-6b3e84f69dcf"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Admin", null },
-                    { new Guid("77456783-d55f-4415-88e8-e376c75acb3e"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Delete", null },
-                    { new Guid("7f1dd303-1052-44c9-8e8f-3549cedc220c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Read", null },
-                    { new Guid("92b7a070-c863-4a63-8290-4f84c215dd0f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Write", null },
-                    { new Guid("983b8d98-177b-47d3-ab6e-e6cbb872a823"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Update", null },
-                    { new Guid("a21edcfc-1bd2-459d-8064-2c8d4e718ef2"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Write", null },
-                    { new Guid("c0f6904d-a69b-4a0a-a765-3b98a0c433d4"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Update", null },
-                    { new Guid("c30ebb91-8cb4-4114-9ec6-ce1bd06c210e"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Add", null },
-                    { new Guid("d9068ad4-fa4b-4361-8b4d-e7d2c56bacce"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Read", null },
-                    { new Guid("e42fe1ec-74a8-44e5-9d23-8c6b16fc697e"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Admin", null },
-                    { new Guid("e73f9495-65e7-412a-a07e-08cbff8a0686"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Add", null },
-                    { new Guid("efae550c-9683-4cf1-b6ff-080d2957c955"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Delete", null },
-                    { new Guid("f8d8d336-0da4-4ba5-b25e-4eeaaa927644"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Write", null },
-                    { new Guid("fc1b4e9d-c6e5-4924-9ba1-076e5cc5b705"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Admin", null }
+                    { new Guid("0112455e-5db7-4b7e-aff7-9db14cd0b738"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Delete", null },
+                    { new Guid("1590b5c2-c384-4006-b16d-76aeea7c58f5"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Admin", null },
+                    { new Guid("1da58d1c-1df5-4a20-ae71-55fe4f841335"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Add", null },
+                    { new Guid("28931c5d-64d9-47b7-bf0f-ba3ce38e71ee"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Admin", null },
+                    { new Guid("31ef4bb8-8417-44ac-b1eb-19072b665ef5"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Read", null },
+                    { new Guid("3276331b-938c-49d3-a6c7-0ef3fceb6f35"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Add", null },
+                    { new Guid("33e04951-6860-4998-becf-463e39458249"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Update", null },
+                    { new Guid("34b862d5-fc94-4dce-af3b-e840d2231d78"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Update", null },
+                    { new Guid("420a3279-45c0-40bf-81be-8f4bc39b4f43"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Write", null },
+                    { new Guid("43db0702-6d4a-4478-9272-830a2cfe6eb0"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Update", null },
+                    { new Guid("47ffe51a-47fc-49e7-8abe-98fe23b82fcb"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Read", null },
+                    { new Guid("48b8faa6-0550-4f31-a8cf-320d9da898c8"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Delete", null },
+                    { new Guid("53eb85fc-6d0a-403b-ace7-0e668a0fd591"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Add", null },
+                    { new Guid("5449bb83-58f9-4e0b-85d4-0e2bc5c72093"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Read", null },
+                    { new Guid("62512c68-9897-4d18-a57b-fc52112a0d92"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Write", null },
+                    { new Guid("6508dcdd-6647-4866-9504-26dc51563456"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Read", null },
+                    { new Guid("7cf66c33-624b-432c-aa1b-a2982a671ba3"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Write", null },
+                    { new Guid("9ad232c6-ec5e-44c6-97c9-42ca4c8a769c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Add", null },
+                    { new Guid("c16d951a-b893-48a9-a707-2e9c9e22712d"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelDepartments.Delete", null },
+                    { new Guid("c22ed5ce-ef97-46c8-a55b-f4e84cdb0111"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Admin", null },
+                    { new Guid("c291936b-f139-434a-b4cf-56af823bb727"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Write", null },
+                    { new Guid("c6d32265-a025-4b76-a78d-9d975cd8a2cc"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "PersonnelShifts.Update", null },
+                    { new Guid("de081605-1c23-48ed-b9ce-9b659643ff1f"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Admin", null },
+                    { new Guid("e00e4eb9-1f7d-4325-8517-b880345ea6de"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Personnels.Admin", null },
+                    { new Guid("f58d6a5c-2df0-4344-a583-9bc572e6782c"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Departments.Delete", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "AuthenticatorType", "CreatedDate", "DeletedDate", "Email", "FirstName", "LastName", "PasswordHash", "PasswordSalt", "Status", "UpdatedDate" },
-                values: new object[] { new Guid("75300e10-1bd6-4a09-9b00-a47ba1faecef"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "admin@admin.com", "Admin", "NArchitecture", new byte[] { 61, 152, 36, 203, 44, 126, 72, 127, 195, 62, 142, 250, 94, 92, 126, 150, 244, 25, 6, 214, 139, 89, 45, 238, 137, 67, 58, 239, 240, 128, 62, 148, 156, 129, 236, 66, 189, 176, 24, 13, 61, 222, 42, 80, 128, 112, 41, 211, 163, 158, 44, 37, 83, 207, 70, 46, 27, 188, 74, 238, 118, 195, 97, 159 }, new byte[] { 90, 53, 25, 35, 177, 187, 95, 175, 98, 174, 223, 153, 243, 214, 169, 138, 140, 63, 177, 171, 111, 133, 60, 12, 129, 171, 202, 113, 213, 246, 86, 230, 71, 184, 89, 54, 179, 144, 116, 76, 7, 218, 168, 28, 148, 142, 58, 165, 225, 55, 196, 82, 103, 29, 235, 210, 33, 4, 206, 146, 86, 5, 245, 130, 133, 163, 181, 234, 51, 229, 22, 168, 12, 45, 43, 218, 134, 105, 124, 108, 226, 24, 76, 49, 225, 200, 76, 34, 19, 235, 28, 245, 111, 144, 102, 227, 178, 12, 47, 65, 211, 255, 229, 168, 93, 213, 229, 10, 234, 177, 54, 37, 69, 172, 232, 5, 175, 232, 49, 131, 56, 186, 124, 129, 53, 231, 130, 234 }, true, null });
+                values: new object[] { new Guid("c6066320-fa57-49d4-bbfe-86ff4e3bde7d"), 0, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "admin@admin.com", "Admin", "NArchitecture", new byte[] { 122, 89, 8, 178, 65, 215, 98, 72, 122, 15, 108, 62, 72, 38, 51, 142, 17, 1, 12, 217, 183, 248, 52, 46, 15, 252, 245, 150, 172, 133, 195, 31, 58, 181, 88, 229, 17, 229, 49, 225, 72, 178, 47, 79, 78, 233, 187, 23, 32, 163, 249, 2, 69, 171, 56, 30, 198, 57, 17, 217, 141, 186, 12, 66 }, new byte[] { 125, 204, 235, 164, 47, 49, 248, 56, 62, 177, 148, 93, 207, 18, 195, 157, 86, 226, 133, 37, 157, 102, 84, 221, 185, 172, 109, 75, 142, 103, 130, 194, 109, 218, 83, 196, 13, 117, 232, 73, 96, 119, 64, 14, 163, 184, 201, 183, 213, 77, 139, 228, 194, 156, 75, 164, 13, 39, 130, 18, 145, 155, 124, 240, 88, 7, 26, 124, 145, 77, 174, 15, 64, 60, 57, 105, 131, 127, 176, 182, 136, 144, 91, 118, 168, 59, 36, 193, 132, 219, 9, 59, 57, 75, 32, 210, 7, 145, 244, 90, 252, 29, 172, 16, 106, 56, 243, 147, 150, 65, 133, 245, 0, 96, 121, 171, 152, 245, 52, 205, 130, 45, 160, 91, 221, 97, 18, 221 }, true, null });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_PersonnelId",
+                table: "Departments",
+                column: "PersonnelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmailAuthenticators_UserId",
@@ -245,6 +290,16 @@ namespace Persistence.Migrations
                 name: "IX_OtpAuthenticators_UserId",
                 table: "OtpAuthenticators",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonnelDepartments_DepartmentId",
+                table: "PersonnelDepartments",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersonnelDepartments_PersonnelId",
+                table: "PersonnelDepartments",
+                column: "PersonnelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Personnels_UserId",
@@ -271,16 +326,13 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Departments");
-
-            migrationBuilder.DropTable(
                 name: "EmailAuthenticators");
 
             migrationBuilder.DropTable(
                 name: "OtpAuthenticators");
 
             migrationBuilder.DropTable(
-                name: "Personnels");
+                name: "PersonnelDepartments");
 
             migrationBuilder.DropTable(
                 name: "PersonnelShifts");
@@ -292,7 +344,13 @@ namespace Persistence.Migrations
                 name: "UserOperationClaims");
 
             migrationBuilder.DropTable(
+                name: "Departments");
+
+            migrationBuilder.DropTable(
                 name: "OperationClaims");
+
+            migrationBuilder.DropTable(
+                name: "Personnels");
 
             migrationBuilder.DropTable(
                 name: "Users");
