@@ -9,14 +9,16 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.PersonnelShifts.Constants.PersonnelShiftsOperationClaims;
+using Application.Services.Personnels;
+using Application.Features.Personnels.Rules;
 
 namespace Application.Features.PersonnelShifts.Commands.Create;
 
-public class CreatePersonnelShiftCommand : IRequest<CreatedPersonnelShiftResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
+public class CreatePersonnelShiftCommand : IRequest<CreatedPersonnelShiftResponse>, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
-    public Guid PersonnelId { get; set; }
-    public DateTime StartShift { get; set; }
-    public DateTime EndShift { get; set; }
+    public string Email { get; set; }
+    public string StartShift { get; set; }
+    public string EndShift { get; set; }
 
     public string[] Roles => new[] { Admin, Write, PersonnelShiftsOperationClaims.Create };
 
@@ -29,19 +31,26 @@ public class CreatePersonnelShiftCommand : IRequest<CreatedPersonnelShiftRespons
         private readonly IMapper _mapper;
         private readonly IPersonnelShiftRepository _personnelShiftRepository;
         private readonly PersonnelShiftBusinessRules _personnelShiftBusinessRules;
+        private readonly IPersonnelsService _personnelsService;
+        private readonly PersonnelBusinessRules _personnelBusinessRules;
 
-        public CreatePersonnelShiftCommandHandler(IMapper mapper, IPersonnelShiftRepository personnelShiftRepository,
-                                         PersonnelShiftBusinessRules personnelShiftBusinessRules)
+        public CreatePersonnelShiftCommandHandler(IMapper mapper, IPersonnelShiftRepository personnelShiftRepository, PersonnelShiftBusinessRules personnelShiftBusinessRules, IPersonnelsService personnelsService, PersonnelBusinessRules personnelBusinessRules)
         {
             _mapper = mapper;
             _personnelShiftRepository = personnelShiftRepository;
             _personnelShiftBusinessRules = personnelShiftBusinessRules;
+            _personnelsService = personnelsService;
+            _personnelBusinessRules = personnelBusinessRules;
         }
 
         public async Task<CreatedPersonnelShiftResponse> Handle(CreatePersonnelShiftCommand request, CancellationToken cancellationToken)
         {
             PersonnelShift personnelShift = _mapper.Map<PersonnelShift>(request);
 
+            Personnel personnel = await _personnelsService.GetPersonnelIdByEmail(request.Email);
+            await _personnelBusinessRules.PersonnelShouldExistWhenSelected(personnel);
+
+            personnelShift.PersonnelId = personnel.Id;
             await _personnelShiftRepository.AddAsync(personnelShift);
 
             CreatedPersonnelShiftResponse response = _mapper.Map<CreatedPersonnelShiftResponse>(personnelShift);

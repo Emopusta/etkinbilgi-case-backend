@@ -14,7 +14,7 @@ namespace WebAPI.Controllers;
 public class PersonnelShiftsController : BaseController
 {
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] CreatePersonnelShiftCommand createPersonnelShiftCommand)
+    public async Task<IActionResult> Add([FromForm] CreatePersonnelShiftCommand createPersonnelShiftCommand)
     {
         CreatedPersonnelShiftResponse response = await Mediator.Send(createPersonnelShiftCommand);
 

@@ -1,6 +1,7 @@
 using Application.Features.Personnels.Rules;
 using Application.Services.Repositories;
 using Core.Persistence.Paging;
+using Core.Security.Entities;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
@@ -10,11 +11,13 @@ namespace Application.Services.Personnels;
 public class PersonnelsManager : IPersonnelsService
 {
     private readonly IPersonnelRepository _personnelRepository;
+    private readonly IUserRepository _userRepository;
     private readonly PersonnelBusinessRules _personnelBusinessRules;
 
-    public PersonnelsManager(IPersonnelRepository personnelRepository, PersonnelBusinessRules personnelBusinessRules)
+    public PersonnelsManager(IPersonnelRepository personnelRepository, IUserRepository userRepository, PersonnelBusinessRules personnelBusinessRules)
     {
         _personnelRepository = personnelRepository;
+        _userRepository = userRepository;
         _personnelBusinessRules = personnelBusinessRules;
     }
 
@@ -73,5 +76,13 @@ public class PersonnelsManager : IPersonnelsService
         Personnel deletedPersonnel = await _personnelRepository.DeleteAsync(personnel);
 
         return deletedPersonnel;
+    }
+
+    public async Task<Personnel> GetPersonnelIdByEmail(string email)
+    {
+        User? user = await _userRepository.GetAsync(p => p.Email == email);
+        Personnel? personnel = await _personnelRepository.GetAsync(p => p.UserId == user.Id);
+
+        return personnel;
     }
 }

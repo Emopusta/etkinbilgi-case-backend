@@ -27,4 +27,6 @@ public interface IPersonnelsService
     Task<Personnel> AddAsync(Personnel personnel);
     Task<Personnel> UpdateAsync(Personnel personnel);
     Task<Personnel> DeleteAsync(Personnel personnel, bool permanent = false);
+
+    Task<Personnel> GetPersonnelIdByEmail(string email);
 }

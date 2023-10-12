@@ -16,8 +16,8 @@ public class UpdatePersonnelShiftCommand : IRequest<UpdatedPersonnelShiftRespons
 {
     public Guid Id { get; set; }
     public Guid PersonnelId { get; set; }
-    public DateTime StartShift { get; set; }
-    public DateTime EndShift { get; set; }
+    public string StartShift { get; set; }
+    public string EndShift { get; set; }
 
     public string[] Roles => new[] { Admin, Write, PersonnelShiftsOperationClaims.Update };
 

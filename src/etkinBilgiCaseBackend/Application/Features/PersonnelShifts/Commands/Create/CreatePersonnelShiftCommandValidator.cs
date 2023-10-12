@@ -6,7 +6,7 @@ public class CreatePersonnelShiftCommandValidator : AbstractValidator<CreatePers
 {
     public CreatePersonnelShiftCommandValidator()
     {
-        RuleFor(c => c.PersonnelId).NotEmpty();
+        RuleFor(c => c.Email).NotEmpty();
         RuleFor(c => c.StartShift).NotEmpty();
         RuleFor(c => c.EndShift).NotEmpty();
     }

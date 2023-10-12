@@ -12,7 +12,7 @@ using static Application.Features.PersonnelShifts.Constants.PersonnelShiftsOpera
 
 namespace Application.Features.PersonnelShifts.Queries.GetList;
 
-public class GetListPersonnelShiftQuery : IRequest<GetListResponse<GetListPersonnelShiftListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListPersonnelShiftQuery : IRequest<GetListResponse<GetListPersonnelShiftListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 

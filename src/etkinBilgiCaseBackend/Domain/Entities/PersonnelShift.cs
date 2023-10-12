@@ -9,14 +9,14 @@ namespace Domain.Entities;
 public class PersonnelShift : Entity<Guid>
 {
     public Guid PersonnelId { get; set; }
-    public DateTime StartShift { get; set; }
-    public DateTime EndShift { get; set; }
+    public string StartShift { get; set; }
+    public string EndShift { get; set; }
 
     public PersonnelShift()
     {
     }
 
-    public PersonnelShift(Guid id, Guid personnelId, DateTime startShift, DateTime endShift)
+    public PersonnelShift(Guid id, Guid personnelId, string startShift, string endShift)
     {
         Id = id;
         PersonnelId = personnelId;
